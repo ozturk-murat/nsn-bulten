@@ -9,7 +9,6 @@ export function useCoupon() {
 
 export function CouponProvider({ children }) {
   const { data } = useBulletin();
-  console.log(data.slice(0, 3));
   const [coupon, setCoupon] = useState([]);
   const [selectedCouponData, setSelectedCouponData] = useState([]);
 

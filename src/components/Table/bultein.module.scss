@@ -10,7 +10,7 @@ table {
 }
 
   thead {
-    background-color: rgba(211, 201, 201, 0.588)
+    background-color: rgba(138, 138, 138, 0.588)
   }
 
   .thead_row {
@@ -27,6 +27,8 @@ tbody {
       }
       td {
         cursor: default;
+        background-color: #28616b;
+        color: white;
       }
   }
 
@@ -44,7 +46,7 @@ tbody {
     }
 
     &__selected_cell {
-      background-color: red;
+      background-color: #FC0;
     }
 
     td {

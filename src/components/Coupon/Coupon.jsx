@@ -35,7 +35,7 @@ function Coupon() {
       )}
 
       <div className={styles.coupon__total}>
-        Toplam Tutar: TL {totalAmount.toFixed(2)}
+        Toplam Tutar: {totalAmount.toFixed(2)} TL
       </div>
     </div>
   );

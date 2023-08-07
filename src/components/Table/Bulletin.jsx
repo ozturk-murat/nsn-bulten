@@ -1,21 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./bultein.module.scss";
 import { useCoupon } from "../../context/CouponContext";
 import { useBulletin } from "../../context/BulletinContext";
 import theadData from "../../../utils/tHeadData.json";
+import Loading from "../Loading/Loading";
 
 function Bulletin() {
   const { updateCoupon } = useCoupon();
-  const { data, loading } = useBulletin();
+  const { data, loading, selectedCells, updateSelectedCells } = useBulletin();
 
-  const handleCellClick = (value, cellId, objIndex, cellIndex, eventId, eventType) => {
+  const handleCellClick = (
+    value,
+    cellId,
+    objIndex,
+    cellIndex,
+    eventId,
+    eventType
+  ) => {
     updateCoupon(value, cellId, objIndex, cellIndex, eventId, eventType);
+    updateSelectedCells(objIndex, cellIndex);
+  };
+
+  const [visibleData, setVisibleData] = useState([]);
+  const itemsPerPage = 100;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    if (!loading) {
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const newData = data.slice(startIndex, endIndex);
+      setVisibleData((prevData) => [...prevData, ...newData]);
+    }
+  }, [loading, data, currentPage]);
+
+  const handleScroll = (e) => {
+    const bottom =
+      e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+    if (bottom) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
   };
 
   return (
-    <div>
+    <div onScroll={handleScroll} style={{ overflow: "auto", height: "100vh" }}>
       {loading ? (
-        <p>Loading...</p>
+        <Loading/>
       ) : (
         <table border={1}>
           <thead>
@@ -27,7 +57,7 @@ function Bulletin() {
             </tr>
           </thead>
           <tbody>
-            {data.map((item, objIndex) => (
+            {visibleData.map((item, objIndex) => (
               <React.Fragment key={objIndex}>
                 <tr className={styles.first_row}>
                   <td>
@@ -60,14 +90,38 @@ function Bulletin() {
                   <td>{item.OCG[1].MBS}</td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[1].OC[0].O, item.C, objIndex, 0, item.OCG[1].ID, item.OCG[1].OC[0].N)
+                      handleCellClick(
+                        item.OCG[1].OC[0].O,
+                        item.C,
+                        objIndex,
+                        0,
+                        item.OCG[1].ID,
+                        item.OCG[1].OC[0].N
+                      )
+                    }
+                    className={
+                      selectedCells.includes(`${objIndex}_${0}`)
+                        ? styles.second_row__selected_cell
+                        : ""
                     }
                   >
                     {item.OCG[1].OC[0].O}
                   </td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[1].OC[1].O, item.C, objIndex, 1, item.OCG[1].ID, item.OCG[1].OC[1].N)
+                      handleCellClick(
+                        item.OCG[1].OC[1].O,
+                        item.C,
+                        objIndex,
+                        1,
+                        item.OCG[1].ID,
+                        item.OCG[1].OC[1].N
+                      )
+                    }
+                    className={
+                      selectedCells.includes(`${objIndex}_${1}`)
+                        ? styles.second_row__selected_cell
+                        : ""
                     }
                   >
                     {item.OCG[1].OC[1].O}
@@ -75,14 +129,38 @@ function Bulletin() {
                   <td></td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[5].OC[25].O, item.C, objIndex, 25, item.OCG[5].ID, item.OCG[5].OC[25].N)
+                      handleCellClick(
+                        item.OCG[5].OC[25].O,
+                        item.C,
+                        objIndex,
+                        25,
+                        item.OCG[5].ID,
+                        item.OCG[5].OC[25].N
+                      )
+                    }
+                    className={
+                      selectedCells.includes(`${objIndex}_${25}`)
+                        ? styles.second_row__selected_cell
+                        : ""
                     }
                   >
                     {item.OCG[5].OC[25].O}
                   </td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[5].OC[26].O, item.C, objIndex, 26, item.OCG[5].ID, item.OCG[5].OC[26].N)
+                      handleCellClick(
+                        item.OCG[5].OC[26].O,
+                        item.C,
+                        objIndex,
+                        26,
+                        item.OCG[5].ID,
+                        item.OCG[5].OC[26].N
+                      )
+                    }
+                    className={
+                      selectedCells.includes(`${objIndex}_${26}`)
+                        ? styles.second_row__selected_cell
+                        : ""
                     }
                   >
                     {item.OCG[5].OC[26].O}
@@ -94,21 +172,57 @@ function Bulletin() {
                   <td>&nbsp;</td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[2].OC[3].O, item.C, objIndex, 3, item.OCG[2].ID, item.OCG[2].OC[3].N)
+                      handleCellClick(
+                        item.OCG[2].OC[3].O,
+                        item.C,
+                        objIndex,
+                        3,
+                        item.OCG[2].ID,
+                        item.OCG[2].OC[3].N
+                      )
+                    }
+                    className={
+                      selectedCells.includes(`${objIndex}_${3}`)
+                        ? styles.second_row__selected_cell
+                        : ""
                     }
                   >
                     {item.OCG[2].OC[3].O}
                   </td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[2].OC[4].O, item.C, objIndex, 4, item.OCG[2].ID, item.OCG[2].OC[4].N)
+                      handleCellClick(
+                        item.OCG[2].OC[4].O,
+                        item.C,
+                        objIndex,
+                        4,
+                        item.OCG[2].ID,
+                        item.OCG[2].OC[4].N
+                      )
+                    }
+                    className={
+                      selectedCells.includes(`${objIndex}_${4}`)
+                        ? styles.second_row__selected_cell
+                        : ""
                     }
                   >
                     {item.OCG[2].OC[4].O}
                   </td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[2].OC[5].O, item.C, objIndex, 5, item.OCG[2].ID, item.OCG[2].OC[5].N)
+                      handleCellClick(
+                        item.OCG[2].OC[5].O,
+                        item.C,
+                        objIndex,
+                        5,
+                        item.OCG[2].ID,
+                        item.OCG[2].OC[5].N
+                      )
+                    }
+                    className={
+                      selectedCells.includes(`${objIndex}_${5}`)
+                        ? styles.second_row__selected_cell
+                        : ""
                     }
                   >
                     {item.OCG[2].OC[5].O}
