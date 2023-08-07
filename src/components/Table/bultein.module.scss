@@ -25,6 +25,9 @@ tbody {
         text-align: left;
         padding-left: 10px;
       }
+      td {
+        cursor: default;
+      }
   }
 
   .second_row {
@@ -38,6 +41,14 @@ tbody {
     :not(:first-child) {
         padding-left: 10px;
         padding-right: 10px;
-      }
+    }
+
+    &__selected_cell {
+      background-color: red;
+    }
+
+    td {
+      cursor: pointer;
+    }
   }
 }

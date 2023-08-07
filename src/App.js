@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { CouponProvider } from "./context/CouponContext";
-import Bultein from "./components/Table/Bultein";
+import Bulletin from "./components/Table/Bulletin";
 import Coupon from "./components/Coupon/Coupon";
 
-const basliklar = [
+const tabloHead = [
   "Event count",
   "Yorumlar",
   "",
@@ -34,10 +34,9 @@ function App({}) {
     axios
       .get(`${process.env.BASE_URL}/bets`)
       .then((response) => {
-        const filteredData = response.data.slice(0, 100); // İlk 100 veriyi al
+        const filteredData = response.data.slice(0, 100);
         setData(filteredData);
         setLoading(false);
-        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -50,7 +49,7 @@ function App({}) {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <Bultein basliklar={basliklar} veriler={data} />
+          <Bulletin tabloHead={tabloHead} data={data} />
         )}
 
         <Coupon />
