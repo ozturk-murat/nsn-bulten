@@ -1,0 +1,21 @@
+[
+    { "id": "yorumlar", "label": "Yorumlar" },
+    { "id": "empty1", "label": "" },
+    { "id": "1", "label": "1" },
+    { "id": "x", "label": "X" },
+    { "id": "2", "label": "2" },
+    { "id": "alt", "label": "Alt" },
+    { "id": "ust", "label": "Üst" },
+    { "id": "h1", "label": "H1" },
+    { "id": "1_h1", "label": "1" },
+    { "id": "x_h1", "label": "X" },
+    { "id": "2_h1", "label": "2" },
+    { "id": "h2", "label": "H2" },
+    { "id": "1_h2", "label": "1-X" },
+    { "id": "1_2", "label": "1-2" },
+    { "id": "x_2", "label": "X-2" },
+    { "id": "var", "label": "Var" },
+    { "id": "yok", "label": "Yok" },
+    { "id": "plus_99", "label": "+99" }
+  ]
+  

@@ -5,7 +5,10 @@ import styles from './coupon.module.scss';
 function Coupon() {
   const { coupon } = useCoupon();
 
-  const totalAmount = coupon.reduce((total, item) => total * parseFloat(item.value), 1);
+  let totalAmount = 0;
+  if (coupon.length > 0) {
+    totalAmount = coupon.reduce((total, item) => total * parseFloat(item.value), 1);
+  }
 
   return (
     <div className={styles.coupon}>
@@ -15,7 +18,7 @@ function Coupon() {
           <hr className={styles.coupon__selected_card__divider} />
         </div>
       ))}
-      <div className={styles.coupon__total}>Toplam Tutar: TL {totalAmount.toFixed(2)}</div>
+      <div className={styles.coupon__total}>Toplam Tutar: {totalAmount.toFixed(2)} TL </div>
     </div>
   );
 }
