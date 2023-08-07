@@ -8,10 +8,8 @@ function Bulletin() {
   const { updateCoupon } = useCoupon();
   const { data, loading } = useBulletin();
 
-  const handleCellClick = (value, cellId, objIndex, cellIndex, eventId) => {
-    //const obj = data.find((_, index) => index === selectedCellId);
-
-    updateCoupon(value, cellId, objIndex, cellIndex, eventId);
+  const handleCellClick = (value, cellId, objIndex, cellIndex, eventId, eventType) => {
+    updateCoupon(value, cellId, objIndex, cellIndex, eventId, eventType);
   };
 
   return (
@@ -62,14 +60,14 @@ function Bulletin() {
                   <td>{item.OCG[1].MBS}</td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[1].OC[0].O, item.C, objIndex, 0, item.OCG[1].ID)
+                      handleCellClick(item.OCG[1].OC[0].O, item.C, objIndex, 0, item.OCG[1].ID, item.OCG[1].OC[0].N)
                     }
                   >
                     {item.OCG[1].OC[0].O}
                   </td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[1].OC[1].O, item.C, objIndex, 1, item.OCG[1].ID)
+                      handleCellClick(item.OCG[1].OC[1].O, item.C, objIndex, 1, item.OCG[1].ID, item.OCG[1].OC[1].N)
                     }
                   >
                     {item.OCG[1].OC[1].O}
@@ -77,14 +75,14 @@ function Bulletin() {
                   <td></td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[5].OC[25].O, item.C, objIndex, 2, item.OCG[5].ID)
+                      handleCellClick(item.OCG[5].OC[25].O, item.C, objIndex, 25, item.OCG[5].ID, item.OCG[5].OC[25].N)
                     }
                   >
                     {item.OCG[5].OC[25].O}
                   </td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[5].OC[26].O, item.C, objIndex, 3, item.OCG[5].ID)
+                      handleCellClick(item.OCG[5].OC[26].O, item.C, objIndex, 26, item.OCG[5].ID, item.OCG[5].OC[26].N)
                     }
                   >
                     {item.OCG[5].OC[26].O}
@@ -96,21 +94,21 @@ function Bulletin() {
                   <td>&nbsp;</td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[2].OC[3].O, item.C, objIndex, 4, item.OCG[2].ID)
+                      handleCellClick(item.OCG[2].OC[3].O, item.C, objIndex, 3, item.OCG[2].ID, item.OCG[2].OC[3].N)
                     }
                   >
                     {item.OCG[2].OC[3].O}
                   </td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[2].OC[4].O, item.C, objIndex, 5, item.OCG[2].ID)
+                      handleCellClick(item.OCG[2].OC[4].O, item.C, objIndex, 4, item.OCG[2].ID, item.OCG[2].OC[4].N)
                     }
                   >
                     {item.OCG[2].OC[4].O}
                   </td>
                   <td
                     onClick={() =>
-                      handleCellClick(item.OCG[2].OC[5].O, item.C, objIndex, 6, item.OCG[2].ID)
+                      handleCellClick(item.OCG[2].OC[5].O, item.C, objIndex, 5, item.OCG[2].ID, item.OCG[2].OC[5].N)
                     }
                   >
                     {item.OCG[2].OC[5].O}

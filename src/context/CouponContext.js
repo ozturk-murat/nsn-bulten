@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-import { useBulletin } from './BulletinContext';
+import React, { createContext, useContext, useState } from "react";
+import { useBulletin } from "./BulletinContext";
 
 const CouponContext = createContext();
 
@@ -8,32 +8,67 @@ export function useCoupon() {
 }
 
 export function CouponProvider({ children }) {
-
   const { data } = useBulletin();
-  console.log("dataCC", data);
+  console.log(data.slice(0, 3));
   const [coupon, setCoupon] = useState([]);
+  const [selectedCouponData, setSelectedCouponData] = useState([]);
 
-  const [opCoupon, setOpCoupon] = useState([]);
+  const updateCoupon = (
+    value,
+    cellId,
+    objIndex,
+    cellIndex,
+    eventId,
+    eventType
+  ) => {
+    const existingCouponItem = coupon.find(
+      (item) => item.objIndex === objIndex && item.cellIndex === cellIndex
+    );
 
-  const updateCoupon = (value, cellId, objIndex, cellIndex, eventId) => {
-    console.log("valıe", eventId);
-    const existingCouponItem = coupon.find(item => item.objIndex === objIndex && item.cellIndex === cellIndex);
-    
-  
     if (existingCouponItem) {
-      setCoupon(coupon.filter(item => !(item.cellId === cellId && item.cellIndex === cellIndex)));
+      setCoupon(
+        coupon.filter(
+          (item) => !(item.cellId === cellId && item.cellIndex === cellIndex)
+        )
+      );
+      const updatedSelectedCouponData = selectedCouponData.filter(
+        (item) => item.C !== cellId
+      );
+      setSelectedCouponData(updatedSelectedCouponData);
     } else {
-      setCoupon([...coupon.filter(item => item.objIndex !== objIndex), { value, cellId, objIndex, cellIndex }]);
+      setCoupon([
+        ...coupon.filter((item) => item.objIndex !== objIndex),
+        { value, cellId, objIndex, cellIndex },
+      ]);
+
+      const selectedData = data.find(
+        (item) =>
+          item.OCG[eventId].OC[cellIndex].N === eventType &&
+          item.C === cellId &&
+          item.objIndex !== objIndex
+      );
+
+      if (selectedData) {
+        const updatedSelectedCouponData = selectedCouponData.filter(
+          (item) => item.C !== cellId && item.objIndex !== objIndex
+        );
+        setSelectedCouponData([
+          ...updatedSelectedCouponData,
+          { ...selectedData, OCG: selectedData.OCG[eventId].OC[cellIndex] },
+        ]);
+      }
     }
   };
 
   return (
-    <CouponContext.Provider value={{ coupon, updateCoupon }}>
+    <CouponContext.Provider
+      value={{
+        coupon,
+        selectedCouponData,
+        updateCoupon,
+      }}
+    >
       {children}
     </CouponContext.Provider>
   );
 }
-
-
-
-
